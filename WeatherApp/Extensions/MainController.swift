@@ -9,11 +9,13 @@
 import UIKit
 
 extension ViewController {
-    func showRequestWeatherAlert() {
+    
+    func showRequestWeatherAlert(clouser: @escaping (_: String) -> ()) {
         let alert = UIAlertController(title: "Get Weather", message: "", preferredStyle: .alert)
         let getAction = UIAlertAction(title: "Get", style: .default, handler: { [unowned alert] _ in
-            guard let text = alert.textFields?.first?.text else { return }
-            print(text)
+            guard var city = alert.textFields?.first?.text else { return }
+            city = city.split(separator: " ").joined(separator: "%20")
+            clouser(city)
         })
         let okCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(getAction)
@@ -24,4 +26,5 @@ extension ViewController {
         })
         present(alert, animated: true)
     }
+    
 }

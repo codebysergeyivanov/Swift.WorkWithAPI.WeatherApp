@@ -9,6 +9,8 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    let api = APIManager()
 
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var temperature: UILabel!
@@ -17,11 +19,13 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
 
     @IBAction func onSearch(_ sender: UIButton) {
-        showRequestWeatherAlert()
+        showRequestWeatherAlert() {
+            city in
+            self.api.request(withCity: city)
+        }
     }
     
 }
