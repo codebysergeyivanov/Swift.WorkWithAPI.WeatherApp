@@ -10,11 +10,20 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var icon: UIImageView!
+    @IBOutlet weak var temperature: UILabel!
+    @IBOutlet weak var feelsLikeTemperature: UILabel!
+    @IBOutlet weak var city: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
 
-
+    @IBAction func onSearch(_ sender: UIButton) {
+        showRequestWeatherAlert()
+    }
+    
 }
+
 
