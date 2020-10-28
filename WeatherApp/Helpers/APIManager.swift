@@ -14,7 +14,7 @@ enum requestType {
     case city(_ city:String)
 }
 
-struct APIManager {
+class APIManager {
     func request(with type: requestType) {
         let selectedURLString: String?
         switch type {
@@ -31,7 +31,8 @@ struct APIManager {
                 let decoder = JSONDecoder()
                 do {
                     let weatherModel = try decoder.decode(WeatherModel.self, from: data)
-                    print(weatherModel.main.feelsLike)
+                    guard let weather = WeatherObject(data: weatherModel) else { return }
+                    
                 } catch let error as NSError {
                     print(error.localizedDescription)
                 }
