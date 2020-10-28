@@ -12,13 +12,13 @@ import CoreLocation
 class ViewController: UIViewController {
     
     var api = APIManager()
-    var locationManager: CLLocationManager {
+    lazy var locationManager: CLLocationManager = {
         let lm = CLLocationManager()
         lm.delegate = self
         lm.desiredAccuracy = kCLLocationAccuracyBest
         lm.requestWhenInUseAuthorization()
         return lm
-    }
+    }()
 
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var temperature: UILabel!
@@ -31,7 +31,7 @@ class ViewController: UIViewController {
             locationManager.requestLocation()
         }
         api.onComplite = {
-            weather in
+           [unowned self] weather in
             DispatchQueue.main.async {
                 self.city.text = weather.city
                 self.temperature.text = weather.temperatureString
@@ -45,7 +45,7 @@ class ViewController: UIViewController {
     @IBAction func onSearch(_ sender: UIButton) {
         showRequestWeatherAlert() { [unowned self]
             city in
-            self.api.request(with: requestType.city(city))
+            self.api.request(with: .city(city))
         }
     }
     
@@ -54,7 +54,7 @@ class ViewController: UIViewController {
 extension ViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let coordinate = locations.first?.coordinate else { return }
-        api.request(with: requestType.coordinate(latitude: coordinate.latitude, longitude: coordinate.longitude))
+        api.request(with: .coordinate(latitude: coordinate.latitude, longitude: coordinate.longitude))
     }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         // handle the error

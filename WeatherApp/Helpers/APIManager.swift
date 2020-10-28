@@ -9,14 +9,14 @@
 import Foundation
 import CoreLocation
 
-enum requestType {
-    case coordinate(latitude: CLLocationDegrees, longitude: CLLocationDegrees)
-    case city(_ city:String)
-}
-
 class APIManager {
     
     var onComplite: ((WeatherObject) -> ())?
+    
+    enum requestType {
+        case coordinate(latitude: CLLocationDegrees, longitude: CLLocationDegrees)
+        case city(_ city:String)
+    }
     
     func request(with type: requestType) {
         let selectedURLString: String?
