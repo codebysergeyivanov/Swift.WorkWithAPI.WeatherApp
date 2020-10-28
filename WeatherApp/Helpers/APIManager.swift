@@ -14,7 +14,7 @@ enum requestType {
     case city(_ city:String)
 }
 
-class APIManager {
+struct APIManager {
     func request(with type: requestType) {
         let selectedURLString: String?
         switch type {
@@ -28,8 +28,13 @@ class APIManager {
         let session = URLSession(configuration: .default)
         let task = session.dataTask(with: url) { data, response, error in
             if let data = data {
-                let text = String(data: data, encoding: .utf8)
-                print(text)
+                let decoder = JSONDecoder()
+                do {
+                    let weatherModel = try decoder.decode(WeatherModel.self, from: data)
+                    print(weatherModel.main.feelsLike)
+                } catch let error as NSError {
+                    print(error.localizedDescription)
+                }
             }
         }
         task.resume()

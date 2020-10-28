@@ -44,7 +44,6 @@ class ViewController: UIViewController {
 extension ViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let coordinate = locations.first?.coordinate else { return }
-        print(coordinate)
         api.request(with: requestType.coordinate(latitude: coordinate.latitude, longitude: coordinate.longitude))
     }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
