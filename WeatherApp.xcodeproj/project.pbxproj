@@ -103,10 +103,10 @@
 		3EB1DC85254847B50059DEBD /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
+				3E9A18FC2548760E004C5473 /* Constants.swift */,
 				3E4CCFE12547F1A90058A81C /* AppDelegate.swift */,
 				3E4CCFE32547F1A90058A81C /* SceneDelegate.swift */,
 				3E4CCFEF2547F1AA0058A81C /* Info.plist */,
-				3E9A18FC2548760E004C5473 /* Constants.swift */,
 			);
 			path = SupportFiles;
 			sourceTree = "<group>";
