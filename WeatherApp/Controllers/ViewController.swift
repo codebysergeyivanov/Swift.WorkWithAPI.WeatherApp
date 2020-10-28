@@ -11,7 +11,7 @@ import CoreLocation
 
 class ViewController: UIViewController {
     
-    let api = APIManager()
+    var api = APIManager()
     var locationManager: CLLocationManager {
         let lm = CLLocationManager()
         lm.delegate = self
@@ -30,10 +30,20 @@ class ViewController: UIViewController {
         if CLLocationManager.locationServicesEnabled() {
             locationManager.requestLocation()
         }
+        api.onComplite = {
+            weather in
+            DispatchQueue.main.async {
+                self.city.text = weather.city
+                self.temperature.text = weather.temperatureString
+                self.feelsLikeTemperature.text = weather.feelsLikeTemperatureString
+                self.icon.image = weather.getIcon()
+            }
+        }
     }
 
+
     @IBAction func onSearch(_ sender: UIButton) {
-        showRequestWeatherAlert() {
+        showRequestWeatherAlert() { [unowned self]
             city in
             self.api.request(with: requestType.city(city))
         }
